@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { AiOutlineSearch } from "react-icons/ai";
+import { format } from "date-fns";
 
 const Wrapper = styled.nav`
   height: 58px;
@@ -30,7 +31,7 @@ const InputWrapper = styled.div`
     z-index: 1;
     left: 14px;
     top: 9px;
-    color: #BABABA;
+    color: #bababa;
   }
   input {
     width: 362px;
@@ -57,7 +58,7 @@ export default function Nav() {
         <AiOutlineSearch />
         <input autoFocus placeholder="Search..." type="text" />
       </InputWrapper>
-      <span>Today is the 24th of October</span>
+      <span>Today is the {format(new Date(), "do 'of' LLLL")}</span>
     </Wrapper>
   );
 }

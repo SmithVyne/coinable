@@ -6,8 +6,11 @@ const nextConfig = {
     styledComponents: {
       displayName: true,
       ssr: true,
-    }
-  }
-}
+    },
+  },
+  images: {
+    domains: ["cdn.myanimelist.net"],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
