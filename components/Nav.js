@@ -1,26 +1,42 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { AiOutlineSearch } from "react-icons/ai";
 import { format } from "date-fns";
+import Link from "next/link";
 
-const Wrapper = styled.nav`
-  height: 58px;
+const Wrapper = styled.div`
   width: 100%;
-  padding: 12px 0 11px;
   display: flex;
   justify-content: center;
-  align-items: center;
   border-bottom: 1px solid #dddddd;
-  gap: 42px;
-  h1 {
-    font-weight: 600;
-    font-size: 24px;
-  }
-  span {
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
-    color: #5a5a5a;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  nav {
+    height: 58px;
+    width: 712px;
+    padding: 12px 0 11px;
+    display: flex;
+    align-items: center;
+    gap: 42px;
+    background-color: #fff;
+    @media (max-width: 712px) {
+      padding: 15px 14px 14px 14px;
+      gap: 14px;
+      justify-content: space-between;
+    }
+    h1 {
+      font-weight: 600;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    span {
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 17px;
+      color: #5a5a5a;
+      min-width: fit-content;
+    }
   }
 `;
 
@@ -34,7 +50,6 @@ const InputWrapper = styled.div`
     color: #bababa;
   }
   input {
-    width: 362px;
     height: 35px;
     outline: none;
     background: #eeeeee;
@@ -48,17 +63,41 @@ const InputWrapper = styled.div`
       color: #bababa;
     }
   }
+  &,
+  & input {
+    width: 100%;
+  }
 `;
 
-export default function Nav() {
+export default function Nav({ setShowModal }) {
+  const [isMobile, setIsMobile] = useState(null);
+  useEffect(() => {
+    const watcher = () => setIsMobile(window.innerWidth < 712);
+    window.addEventListener("resize", watcher);
+    watcher();
+    return () => {
+      window.removeEventListener("resize", watcher);
+    };
+  }, []);
+
   return (
     <Wrapper>
-      <h1>Anime</h1>
-      <InputWrapper>
-        <AiOutlineSearch />
-        <input autoFocus placeholder="Search..." type="text" />
-      </InputWrapper>
-      <span>Today is the {format(new Date(), "do 'of' LLLL")}</span>
+      <nav>
+        <Link href={"/"}>
+          <h1>Anime</h1>
+        </Link>
+        <InputWrapper onClick={() => setShowModal(true)}>
+          <AiOutlineSearch />
+          <input placeholder="Search..." type="text" />
+        </InputWrapper>
+        <span>
+          {isMobile == null
+            ? null
+            : isMobile
+            ? format(new Date(), "MMM do")
+            : `Today is the ${format(new Date(), "do 'of' LLLL")}`}
+        </span>
+      </nav>
     </Wrapper>
   );
 }
