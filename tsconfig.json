@@ -20,8 +20,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "components/Nav.js",
-    "pages/index.js"
-, "components/Cards.js"  ],
+    "components/Nav.tsx",
+    "pages/index.tsx"
+, "components/Cards.tsx"  ],
   "exclude": ["node_modules"]
 }

@@ -3,7 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 import Image from "next/image";
 import { GetServerSidePropsContext } from "next";
-import { TAnime } from "./anime";
+import { TAnime } from "types";
 import backIcon from "./icons/backIcon.svg";
 import verified from "./icons/verified.svg";
 import { useRouter } from "next/router";

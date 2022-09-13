@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Card from "components/Card";
+import { TAnime } from "types";
 
 const Wrapper = styled.div`
   margin: 38px auto 33px;
@@ -22,7 +23,7 @@ const Wrapper = styled.div`
   }
 `;
 
-export default function Cards({ animeList }) {
+export default function Cards({ animeList }: { animeList: TAnime[] }) {
   return (
     <Wrapper>
       {animeList.map((anime) => (

@@ -25,16 +25,16 @@ const Wrapper = styled.div`
   gap: 12px;
 `;
 
-export default function Paginate({ page }) {
+export default function Paginate({ page }: { page: number }) {
   return (
     <Wrapper>
-      <Link passHref href={`/?page=${+page - 1}`}>
+      <Link passHref href={`/?page=${page - 1}`}>
         <a>
           <Image alt="leftArrow" src={leftArrow} />
         </a>
       </Link>
       {page}
-      <Link href={`/?page=${+page + 1}`}>
+      <Link href={`/?page=${page + 1}`}>
         <a>
           <Image alt="rightArrow" src={rightArrow} />
         </a>

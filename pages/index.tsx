@@ -6,6 +6,8 @@ import Paginate from "components/Paginate";
 import Footer from "components/Footer";
 import SearchModal from "components/SearchModal";
 import { useState } from "react";
+import { TAnimeResponse } from "types";
+import { GetServerSidePropsContext } from "next";
 
 const Wrapper = styled.div`
   min-height: 100vh;
@@ -14,27 +16,27 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-const Home = ({ animeList }) => {
+const Home = ({ response }: { response: TAnimeResponse }) => {
   const [showModal, setShowModal] = useState(false);
   return (
     <Wrapper>
       {showModal && <SearchModal close={() => setShowModal(false)} />}
-      <Nav setShowModal={setShowModal} />
-      <Cards animeList={animeList.data} />
-      <Paginate page={animeList.pagination.current_page} />
+      <Nav onClick={() => setShowModal(true)} />
+      <Cards animeList={response.data} />
+      <Paginate page={response.pagination.current_page} />
       <Footer />
     </Wrapper>
   );
 };
 export default Home;
 
-export async function getServerSideProps({ query }) {
-  let { page = 1 } = query;
-  const animeList = await axios
+export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+  let { page = 1 } = ctx.query;
+  const response = await axios
     .get(`https://api.jikan.moe/v4/top/anime?limit=9&page=${page}`)
     .then((res) => res.data);
 
   return {
-    props: { animeList },
+    props: { response },
   };
 }

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { TAnime } from "types";
 import React from "react";
 import styled from "styled-components";
 
@@ -39,7 +40,7 @@ const Title = styled.span`
   align-items: flex-end;
 `;
 
-export default function Card({ mal_id, images, title }) {
+export default function Card({ mal_id, images, title }: TAnime) {
   return (
     <Link href={`/anime/${mal_id}`}>
       <Wrapper>

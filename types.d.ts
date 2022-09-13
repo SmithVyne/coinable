@@ -18,7 +18,7 @@ export interface TAnime {
     url: string;
     embed_url: string;
   };
-  approved: true;
+  approved: boolean;
   titles: [string];
   title: string;
   title_english: string;
@@ -28,7 +28,7 @@ export interface TAnime {
   source: string;
   episodes: number;
   status: "Finished Airing";
-  airing: true;
+  airing: boolean;
   aired: {
     from: string;
     to: string;
@@ -149,4 +149,18 @@ export interface TAnime {
       url: string;
     }
   ];
+}
+
+export interface TAnimeResponse {
+  pagination: {
+    last_visible_page: number;
+    has_next_page: boolean;
+    current_page: number;
+    items: {
+      count: number;
+      total: number;
+      per_page: number;
+    };
+  };
+  data: TAnime[];
 }

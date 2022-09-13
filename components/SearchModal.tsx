@@ -2,8 +2,8 @@ import axios from "axios";
 import debounce from "lodash/debounce";
 import Image from "next/image";
 import Link from "next/link";
-import { TAnime } from "pages/anime/anime";
-import React, { useState, useMemo, useRef } from "react";
+import { TAnime } from "types";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import styled from "styled-components";
 import arrowRight from "icons/arrowRight.svg";
@@ -65,6 +65,7 @@ const Result = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
+  cursor: pointer;
   div.imgWrapper {
     width: 50px;
     height: 50px;
@@ -161,6 +162,17 @@ export default function SearchModal({ close }: SearchProps) {
     []
   );
 
+  useEffect(() => {
+    const listener = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        close();
+      }
+    };
+
+    window.addEventListener("keyup", listener);
+    return () => window.removeEventListener("keyup", listener);
+  }, [close]);
+
   return (
     <Wrapper onClick={close}>
       <InputWrapper onClick={(e) => e.stopPropagation()}>
@@ -170,6 +182,7 @@ export default function SearchModal({ close }: SearchProps) {
           type="text"
           onChange={handleInput}
           ref={inputRef}
+          autoFocus
         />
         {inputRef?.current?.value && (
           <SearchResults>

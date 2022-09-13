@@ -69,8 +69,8 @@ const InputWrapper = styled.div`
   }
 `;
 
-export default function Nav({ setShowModal }) {
-  const [isMobile, setIsMobile] = useState(null);
+export default function Nav({ onClick }: { onClick: () => void }) {
+  const [isMobile, setIsMobile] = useState<null | boolean>(null);
   useEffect(() => {
     const watcher = () => setIsMobile(window.innerWidth < 712);
     window.addEventListener("resize", watcher);
@@ -86,7 +86,7 @@ export default function Nav({ setShowModal }) {
         <Link href={"/"}>
           <h1>Anime</h1>
         </Link>
-        <InputWrapper onClick={() => setShowModal(true)}>
+        <InputWrapper onClick={onClick}>
           <AiOutlineSearch />
           <input placeholder="Search..." type="text" />
         </InputWrapper>
